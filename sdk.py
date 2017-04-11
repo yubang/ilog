@@ -10,7 +10,7 @@ class ILog(object):
         self.api_url = api_url
         self.token = token
 
-    def login_log(self, request_url, request_param, response_data, request_time, use_time=0, request_method='GET',  request_headers=None, error_data=None, status_code=200):
+    def login_log(self, request_url, request_param, response_data, request_time, use_time=0, request_method='GET',  request_headers=None, error_data=None, status_code=200, app_name='app'):
         """
         提交请求日志
         :param request_url: 请求地址
@@ -22,6 +22,7 @@ class ILog(object):
         :param request_headers: 请求headers
         :param error_data: 错误数据
         :param status_code: 状态码
+        :param app_name: app名字
         :return:
         """
 
@@ -45,6 +46,7 @@ class ILog(object):
             "error_data": error_data,
             "token": self.token,
             "status_code": status_code,
+            "app_name": app_name,
         }
         r = requests.post(self.api_url, data=d)
         print r.json()['code']

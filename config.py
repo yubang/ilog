@@ -6,6 +6,8 @@ TOKEN = 'abc'
 # WEB服务相关
 WEB_LISTEN_IP = '127.0.0.1'
 WEB_LISTEN_PORT = 8000
+WEB_USER = 'root'
+WEB_PASSWOD = 'root'
 
 # 存储设置
 storage = {

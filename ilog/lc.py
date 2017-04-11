@@ -12,7 +12,7 @@ class LcWorker(BaseObject):
         leancloud.init(app_id, app_key)
 
     def save_log(self, request_url, request_param, response_data, request_time, use_time=0, request_method='GET',
-                 request_headers=None, error_data=None, status_code=200):
+                 request_headers=None, error_data=None, status_code=200, app_name='app'):
         obj = leancloud.Object.extend('ilog_' + datetime.strptime(request_time, "%Y-%m-%d %H:%M:%S").strftime("%Y%m%d"))()
         obj.set('request_url', request_url)
         obj.set('request_param', request_param)
@@ -23,4 +23,5 @@ class LcWorker(BaseObject):
         obj.set('request_headers', request_headers)
         obj.set('error_data', error_data)
         obj.set('status_code', status_code)
+        obj.set('app_name', app_name)
         return obj.save()
