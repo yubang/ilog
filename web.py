@@ -44,9 +44,10 @@ def login_log():
     request_method = request.form.get('request_method')
     request_headers = request.form.get('request_headers')
     error_data = request.form.get('error_data')
+    status_code = request.form.get('status_code')
 
     worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
-    worker.save_log(request_url=request_url, request_param=request_param, response_data=response_data, request_time=request_time, use_time=use_time, request_method=request_method, request_headers=request_headers, error_data=error_data)
+    worker.save_log(request_url=request_url, request_param=request_param, response_data=response_data, request_time=request_time, use_time=use_time, request_method=request_method, request_headers=request_headers, error_data=error_data, status_code=status_code)
     return output()
 
 
