@@ -1,0 +1,15 @@
+{
+  "pages": [
+    {"url": "/web/html/request-log", "path": "./pages/request_log"}
+  ],
+  "title": "ilog管理后台",
+  "components": [
+  ],
+  "404": "/404",
+  "own_css_list": [
+    "https://cdn.bootcss.com/iview/2.0.0-rc.9/styles/iview.css"
+  ],
+  "own_js_list": [
+    "https://cdn.bootcss.com/iview/2.0.0-rc.9/iview.min.js"
+  ]
+}

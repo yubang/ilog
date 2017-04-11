@@ -1,10 +1,12 @@
 # coding:UTF-8
 
 
-from flask import Flask, request, Response
+from flask import Flask, request, Response, session
+from datetime import datetime
 from ilog import error_code
 from ilog.lc import LcWorker
 from json import dumps
+from functools import wraps
 import config
 
 
@@ -49,6 +51,30 @@ def login_log():
     worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
     worker.save_log(request_url=request_url, request_param=request_param, response_data=response_data, request_time=request_time, use_time=use_time, request_method=request_method, request_headers=request_headers, error_data=error_data, status_code=status_code)
     return output()
+
+
+def check_login(fn):
+    """检查是否登录"""
+    @wraps(fn)
+    def handler(*k, **v):
+        if 'admin' not in session:
+            return output(code=error_code.need_login)
+        return fn(*k, **v)
+    return handler
+
+
+@app.route('/web/api/request-log')
+def request_log():
+    """获取请求日志信息"""
+    request_date = request.form.get('request_date', datetime.today().strftime("%Y%m%d"))
+    page = int(request.form.get('page', "1"))
+    worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
+
+
+@app.errorhandler(404)
+def all_request(e):
+    with open('index.html') as fp:
+        return Response(fp.read(), content_type='text/html')
 
 
 if __name__ == '__main__':
