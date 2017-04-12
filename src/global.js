@@ -5,3 +5,11 @@ function check_login(d){
     app.goto('/web/html/login');
     return false;
 }
+
+function exit_account(){
+    $.get('/web/api/exit', {}, function(data){
+        app.goto('/web/html/login');
+    }).error(function(){
+        app.goto('/web/html/login');
+    });
+}
