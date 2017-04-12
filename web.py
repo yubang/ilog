@@ -1,7 +1,7 @@
 # coding:UTF-8
 
 
-from flask import Flask, request, Response, session, send_file
+from flask import Flask, request, Response, session, send_file, abort
 from datetime import datetime
 from ilog import error_code
 from ilog.lc import LcWorker
@@ -11,6 +11,7 @@ import config
 
 
 app = Flask(__name__)
+app.secret_key = '78e6221f6393d1356681db398f14ce6d'
 
 
 def output(data=None, code=error_code.ok):
@@ -64,6 +65,7 @@ def check_login(fn):
 
 
 @app.route('/web/api/request-log')
+@check_login
 def request_log():
     """获取请求日志信息"""
     request_date = request.form.get('request_date', datetime.today().strftime("%Y%m%d"))
@@ -102,6 +104,7 @@ def login_program_log():
 
 
 @app.route('/web/api/program-log')
+@check_login
 def program_log():
     """获取程序日志信息"""
     log_date = request.form.get('log_date', datetime.today().strftime("%Y%m%d"))
@@ -109,6 +112,30 @@ def program_log():
     worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
     d = worker.get_a_page_of_program_log(page, log_date)
     return output(data={"datas": d[0], "totalPage": d[1]})
+
+
+@app.route('/web/api/login', methods=['POST'])
+def login():
+    """登录"""
+    name = request.form.get('name')
+    password = request.form.get('password')
+
+    if name != config.WEB_USER:
+        return abort(403)
+
+    if password != config.WEB_PASSWOD:
+        return abort(403)
+
+    session['admin'] = datetime.now()
+
+    return "ok"
+
+
+@app.route('/web/api/exit')
+@check_login
+def exit_account():
+    del session['admin']
+    return "ok"
 
 
 if __name__ == '__main__':

@@ -15,6 +15,7 @@ app.init({
         data: {
             page: parseInt(app.get_args("page")) || 1
         },
+        before_success: check_login,
         success: function(d){
             return {
                 tabIndex: "2",

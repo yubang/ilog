@@ -1,0 +1,16 @@
+<el-menu theme="dark" default-active="1" class="el-menu-demo">
+  <el-menu-item index="1">ILog管理后台</el-menu-item>
+</el-menu>
+
+
+<el-form ref="form" :model="form" label-width="80px">
+  <el-form-item label="用户名：">
+    <el-input v-model="form.name"></el-input>
+  </el-form-item>
+    <el-form-item label="密码：">
+    <el-input v-model="form.password" type="password"></el-input>
+  </el-form-item>
+    <el-form-item>
+    <el-button type="primary" @click="onSubmit">登录</el-button>
+    </el-form-item>
+</el-form>
