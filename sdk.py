@@ -6,11 +6,12 @@ import requests
 
 
 class ILog(object):
-    def __init__(self, api_url, token):
+    def __init__(self, api_url, token, app_name='app'):
         self.api_url = api_url
         self.token = token
+        self.app_name = app_name
 
-    def login_log(self, request_url, request_param, response_data, request_time, use_time=0, request_method='GET',  request_headers=None, error_data=None, status_code=200, app_name='app'):
+    def login_log(self, request_url, request_param, response_data, request_time, use_time=0, request_method='GET',  request_headers=None, error_data=None, status_code=200):
         """
         提交请求日志
         :param request_url: 请求地址
@@ -46,12 +47,41 @@ class ILog(object):
             "error_data": error_data,
             "token": self.token,
             "status_code": status_code,
-            "app_name": app_name,
+            "app_name": self.app_name,
         }
-        r = requests.post(self.api_url, data=d)
+        r = requests.post(self.api_url + "/api/login-log", data=d)
         print r.json()['code']
+
+    def login_program_log(self, level, msg, d):
+        if d is None:
+            d = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        data = {
+            "token": self.token,
+            "level": level,
+            "msg": msg,
+            "log_time": d,
+            "app_name": self.app_name,
+        }
+        r = requests.post(self.api_url + "/api/login-program-log", data=data)
+        print r.json()['code']
+
+    def debug(self, msg, d=None):
+        return self.login_program_log("DEBUG", msg, d)
+
+    def info(self, msg, d=None):
+        return self.login_program_log("INFO", msg, d)
+
+    def warn(self, msg, d=None):
+        return self.login_program_log("WARN", msg, d)
+
+    def error(self, msg, d=None):
+        return self.login_program_log("ERROR", msg, d)
+
+    def fatal(self, msg, d=None):
+        return self.login_program_log("FATAL", msg, d)
 
 if __name__ == '__main__':
     import config
-    ilog = ILog("http://%s:%d/api/login-log" % (config.WEB_LISTEN_IP, config.WEB_LISTEN_PORT), config.TOKEN)
-    ilog.login_log('/debug', {}, "", datetime.now(), status_code=404, use_time=0.53)
+    ilog = ILog("http://%s:%d" % (config.WEB_LISTEN_IP, config.WEB_LISTEN_PORT), config.TOKEN)
+    # ilog.login_log('/debug', {}, "", datetime.now(), status_code=404, use_time=0.53)
+    ilog.debug("一条日志！")

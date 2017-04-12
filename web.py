@@ -1,7 +1,7 @@
 # coding:UTF-8
 
 
-from flask import Flask, request, Response, session
+from flask import Flask, request, Response, session, send_file
 from datetime import datetime
 from ilog import error_code
 from ilog.lc import LcWorker
@@ -77,6 +77,38 @@ def request_log():
 def all_request(e):
     with open('index.html') as fp:
         return Response(fp.read(), content_type='text/html')
+
+
+@app.route('/favicon.ico')
+def favicon_ico():
+    return send_file('favicon.ico')
+
+
+@app.route('/api/login-program-log', methods=['POST'])
+def login_program_log():
+    """记录程序日志"""
+    token = request.form.get('token')
+    if token != config.TOKEN:
+        return output(code=error_code.token_error)
+
+    level = request.form.get('level')
+    msg = request.form.get('msg')
+    log_time = request.form.get('log_time')
+    app_name = request.form.get('app_name')
+
+    worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
+    worker.login_program_log(app_name, level, msg, log_time)
+    return output()
+
+
+@app.route('/web/api/program-log')
+def program_log():
+    """获取程序日志信息"""
+    log_date = request.form.get('log_date', datetime.today().strftime("%Y%m%d"))
+    page = int(request.form.get('page', "1"))
+    worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
+    d = worker.get_a_page_of_program_log(page, log_date)
+    return output(data={"datas": d[0], "totalPage": d[1]})
 
 
 if __name__ == '__main__':

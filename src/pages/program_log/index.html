@@ -1,6 +1,17 @@
 <extends src="../base.html" />
 <block name="content">
-    <div class="css1">
-    该功能将在下一版本出现！
-</div>
+
+    <template>
+        <el-table :data="tableData" stripe style="margin-left:15px;">
+            <el-table-column prop="app_name" label="APP"></el-table-column>
+            <el-table-column prop="level" label="日志等级" ></el-table-column>
+            <el-table-column prop="log_time" label="记录时间"></el-table-column>
+            <el-table-column prop="msg" label="日志内容" ></el-table-column>
+        </el-table>
+    </template>
+
+
+    <el-pagination layout="prev, pager, next" :page-count="totalPage" style="margin-left:15px;margin-top:15px;" @current-change="currentChange" :current-page="nums"></el-pagination>
+
+
 </block>
