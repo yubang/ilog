@@ -85,3 +85,4 @@ if __name__ == '__main__':
     ilog = ILog("http://%s:%d" % (config.WEB_LISTEN_IP, config.WEB_LISTEN_PORT), config.TOKEN)
     # ilog.login_log('/debug', {}, "", datetime.now(), status_code=404, use_time=0.53)
     ilog.debug("一条日志！")
+    ilog.info("好的呢！")

@@ -104,7 +104,7 @@ function Applet(){
 
     // 无刷新跳转页面
     this.goto = function(url){
-        window.history.pushState({},0,url);
+        window.history.pushState({},document.title,url);
          goto_url(window.location.pathname);
     }
 
@@ -121,6 +121,12 @@ function Applet(){
 }
 
 var app = new Applet();
+
+
+window.addEventListener('popstate', function(event) {
+   goto_url(window.location.pathname);
+});
+
 
 $(document).ready(function(){
     goto_url(window.location.pathname);
