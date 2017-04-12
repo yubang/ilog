@@ -35,4 +35,29 @@ class LcWorker(BaseObject):
         :param request_date: 日期（字符串 %Y%M%D）
         :return:
         """
-        pass
+        obj = leancloud.Object.extend('ilog_' + request_date)
+        query = obj.query
+        query.limit(10)
+        query.skip((page - 1)* 10)
+        query.add_descending("request_time")
+
+        total_count = query.count()
+        total_page = int(total_count / 10) + 1 if total_count % 10 else 0
+
+        objs = query.find()
+        datas = [
+            {
+                "request_url": obj.get('request_url'),
+                "request_param": obj.get('request_param'),
+                "response_data": obj.get('response_data'),
+                "request_time": obj.get('request_time'),
+                "use_time": obj.get('use_time'),
+                "request_method": obj.get('request_method'),
+                "request_headers": obj.get('request_headers'),
+                "error_data": obj.get('error_data'),
+                "status_code": obj.get('status_code'),
+                "app_name": obj.get('app_name'),
+            }
+            for obj in objs
+        ]
+        return datas, total_page

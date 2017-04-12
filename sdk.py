@@ -54,4 +54,4 @@ class ILog(object):
 if __name__ == '__main__':
     import config
     ilog = ILog("http://%s:%d/api/login-log" % (config.WEB_LISTEN_IP, config.WEB_LISTEN_PORT), config.TOKEN)
-    ilog.login_log('/debug', {}, "", datetime.now(), status_code=404)
+    ilog.login_log('/debug', {}, "", datetime.now(), status_code=404, use_time=0.53)

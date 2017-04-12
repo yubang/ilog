@@ -69,6 +69,8 @@ def request_log():
     request_date = request.form.get('request_date', datetime.today().strftime("%Y%m%d"))
     page = int(request.form.get('page', "1"))
     worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
+    d = worker.get_a_page_of_log(page, request_date)
+    return output(data={"datas": d[0], "totalPage": d[1]})
 
 
 @app.errorhandler(404)
