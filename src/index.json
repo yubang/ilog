@@ -2,9 +2,10 @@
   "pages": [
     {"url": "/web/html/request-log", "path": "./pages/request_log"},
     {"url": "/web/html/404", "path": "./pages/404"},
-    {"url": "/web/html/about", "path": "./pages/about"}
+    {"url": "/web/html/about", "path": "./pages/about"},
+    {"url": "/web/html/program-log", "path": "./pages/program_log"}
   ],
-  "title": "ilog管理后台",
+  "title": "ILog管理后台",
   "components": [
   ],
   "404": "/web/html/404",
