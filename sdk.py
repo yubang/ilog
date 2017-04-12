@@ -86,3 +86,4 @@ if __name__ == '__main__':
     # ilog.login_log('/debug', {}, "", datetime.now(), status_code=404, use_time=0.53)
     ilog.debug("一条日志！")
     ilog.info("好的呢！")
+    ilog.error("出现错误了！")

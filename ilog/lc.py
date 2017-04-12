@@ -42,7 +42,7 @@ class LcWorker(BaseObject):
         query.add_descending("request_time")
 
         total_count = query.count()
-        total_page = int(total_count / 10) + 1 if total_count % 10 else 0
+        total_page = int(total_count / 10) + (1 if total_count % 10 else 0)
 
         objs = query.find()
         datas = [
@@ -93,7 +93,7 @@ class LcWorker(BaseObject):
         query.add_descending("log_time")
 
         total_count = query.count()
-        total_page = int(total_count / 10) + 1 if total_count % 10 else 0
+        total_page = int(total_count / 10) + (1 if total_count % 10 else 0)
 
         objs = query.find()
         datas = [
