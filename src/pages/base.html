@@ -1,1 +1,18 @@
-123
+<el-menu theme="dark" default-active="1" class="el-menu-demo">
+    <el-menu-item index="1">ILog管理后台</el-menu-item>
+</el-menu>
+
+<br>
+
+<el-row class="tac">
+    <el-col :span="4">
+        <el-menu :default-active="tabIndex" class="el-menu-vertical-demo" theme="dark">
+            <el-menu-item index="1" onclick="app.goto('/web/html/request-log');"><i class="el-icon-message"></i><a href="javascript:app.goto('/web/html/request-log');">前端请求日志</a></el-menu-item>
+            <el-menu-item index="2" onclick="app.goto('/web/html/about');"><i class="el-icon-menu"></i><a href="">程序日志</a></el-menu-item>
+            <el-menu-item index="3" onclick="app.goto('/web/html/about');"><i class="el-icon-setting"></i><a href="javascript:app.goto('/web/html/about');">关于</a></el-menu-item>
+        </el-menu>
+    </el-col>
+    <el-col :span="16">
+        <block name="content"></block>
+    </el-col>
+</el-row>
