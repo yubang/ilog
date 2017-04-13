@@ -38,29 +38,32 @@ class LcWorker(BaseObject):
         obj = leancloud.Object.extend('ilog_' + request_date)
         query = obj.query
         query.limit(10)
-        query.skip((page - 1)* 10)
+        query.skip((page - 1) * 10)
         query.add_descending("request_time")
 
-        total_count = query.count()
-        total_page = int(total_count / 10) + (1 if total_count % 10 else 0)
+        try:
+            total_count = query.count()
+            total_page = int(total_count / 10) + (1 if total_count % 10 else 0)
 
-        objs = query.find()
-        datas = [
-            {
-                "request_url": obj.get('request_url'),
-                "request_param": obj.get('request_param'),
-                "response_data": obj.get('response_data'),
-                "request_time": obj.get('request_time'),
-                "use_time": obj.get('use_time'),
-                "request_method": obj.get('request_method'),
-                "request_headers": obj.get('request_headers'),
-                "error_data": obj.get('error_data'),
-                "status_code": obj.get('status_code'),
-                "app_name": obj.get('app_name'),
-            }
-            for obj in objs
-        ]
-        return datas, total_page
+            objs = query.find()
+            datas = [
+                {
+                    "request_url": obj.get('request_url'),
+                    "request_param": obj.get('request_param'),
+                    "response_data": obj.get('response_data'),
+                    "request_time": obj.get('request_time'),
+                    "use_time": obj.get('use_time'),
+                    "request_method": obj.get('request_method'),
+                    "request_headers": obj.get('request_headers'),
+                    "error_data": obj.get('error_data'),
+                    "status_code": obj.get('status_code'),
+                    "app_name": obj.get('app_name'),
+                }
+                for obj in objs
+                ]
+            return datas, total_page
+        except leancloud.LeanCloudError:
+            return [], 1
 
     def login_program_log(self, app_name, level, msg, log_time):
         """
@@ -92,17 +95,20 @@ class LcWorker(BaseObject):
         query.skip((page - 1) * 10)
         query.add_descending("log_time")
 
-        total_count = query.count()
-        total_page = int(total_count / 10) + (1 if total_count % 10 else 0)
+        try:
+            total_count = query.count()
+            total_page = int(total_count / 10) + (1 if total_count % 10 else 0)
 
-        objs = query.find()
-        datas = [
-            {
-                "level": obj.get('level'),
-                "msg": obj.get('msg'),
-                "log_time": obj.get('log_time'),
-                "app_name": obj.get('app_name'),
-            }
-            for obj in objs
-        ]
-        return datas, total_page
+            objs = query.find()
+            datas = [
+                {
+                    "level": obj.get('level'),
+                    "msg": obj.get('msg'),
+                    "log_time": obj.get('log_time'),
+                    "app_name": obj.get('app_name'),
+                }
+                for obj in objs
+                ]
+            return datas, total_page
+        except leancloud.LeanCloudError:
+            return [], 1

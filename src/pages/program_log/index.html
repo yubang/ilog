@@ -1,6 +1,10 @@
 <extends src="../base.html" />
 <block name="content">
 
+    <div class="search">
+        <el-date-picker v-model="value2" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions1" @change="selectDate"></el-date-picker>
+    </div>
+
     <template>
         <el-table :data="tableData" stripe style="margin-left:15px;">
             <el-table-column prop="app_name" label="APP"></el-table-column>

@@ -68,8 +68,8 @@ def check_login(fn):
 @check_login
 def request_log():
     """获取请求日志信息"""
-    request_date = request.form.get('request_date', datetime.today().strftime("%Y%m%d"))
-    page = int(request.form.get('page', "1"))
+    request_date = request.args.get('request_date', datetime.today().strftime("%Y%m%d"))
+    page = int(request.args.get('page', "1"))
     worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
     d = worker.get_a_page_of_log(page, request_date)
     return output(data={"datas": d[0], "totalPage": d[1]})
@@ -107,8 +107,8 @@ def login_program_log():
 @check_login
 def program_log():
     """获取程序日志信息"""
-    log_date = request.form.get('log_date', datetime.today().strftime("%Y%m%d"))
-    page = int(request.form.get('page', "1"))
+    log_date = request.args.get('log_date', datetime.today().strftime("%Y%m%d"))
+    page = int(request.args.get('page', "1"))
     worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
     d = worker.get_a_page_of_program_log(page, log_date)
     return output(data={"datas": d[0], "totalPage": d[1]})

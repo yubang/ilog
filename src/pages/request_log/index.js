@@ -1,13 +1,54 @@
+var page = parseInt(app.get_args("page")) || 1;
+
+function searchData(){
+    var t;
+    if(app.vm.value2){
+        app.vm.value2 = new Date(app.vm.value2)
+        var s = "", s2 = "";
+        if(app.vm.value2.getMonth() + 1 < 10){s="0";}
+        if(app.vm.value2.getDate() + 1 < 10){s2="0";}
+        t = "" + app.vm.value2.getFullYear() + s + (app.vm.value2.getMonth() + 1) + s2 + app.vm.value2.getDate();
+    }else{
+        t = getToday();
+    }
+    app.goto("/web/html/request-log?page=" + page + "&request_date="+t);
+}
+var pickerOptions1 = {
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }]
+        };
+
 app.init({
     data: {
         tabIndex: "1",
         tableData: [],
         nums: parseInt(app.get_args("page")) || 1,
-        totalPage: 1
+        totalPage: 1,
+        pickerOptions1: pickerOptions1
     },
     methods: {
+        selectDate: function(){searchData()},
         "currentChange": function(currentPage){
-            app.goto("/web/html/request-log?page=" + currentPage);
+            page = currentPage;
+            searchData();
         },
         "look": function(index){
             var obj = app.data[index];
@@ -35,7 +76,8 @@ app.init({
     api: {
         url: '/web/api/request-log',
         data: {
-            page: parseInt(app.get_args("page")) || 1
+            page: parseInt(app.get_args("page")) || 1,
+            request_date: app.get_args('request_date') || getToday()
         },
         before_success: check_login,
         success: function(d){
@@ -58,7 +100,9 @@ app.init({
                 tabIndex: "1",
                 tableData: arrs,
                 nums: parseInt(app.get_args("page")) || 1,
-                totalPage: d['data']['totalPage']
+                totalPage: d['data']['totalPage'],
+                pickerOptions1: pickerOptions1,
+                value2: handleDate(app.get_args('request_date'))
             }
         }
     }
