@@ -52,7 +52,6 @@ app.init({
         },
         "look": function(index){
             var obj = app.data[index];
-            console.log(obj);
             var text = "请求地址：" + obj['request_method'] + " " + obj['request_url'] + "\n\n";
             text = text + "状态码：" + obj['status_code'] + "\n\n";
             text = text + "请求用时：" + obj['use_time'] + "秒\n\n";
