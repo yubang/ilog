@@ -34,5 +34,5 @@ python web.py
 
 ![应用自定义日志面板](https://github.com/yubang/ilog/raw/master/doc/pic/2.png)
 
-![关于面板](https://github.com/yubang/ilog/raw/master/src/doc/3.png)
+![关于面板](https://github.com/yubang/ilog/raw/master/doc/pic/3.png)
 
