@@ -36,6 +36,12 @@ python web.py
 * [与现有系统集成](https://github.com/yubang/ilog/tree/master/doc/3.md)
 
 
+###### 联系
+
+* 如有疑问可以发送邮件到：yubang93@gmail.com
+
+* 或者提issues
+
 
 ###### 程序预览
 
