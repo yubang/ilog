@@ -109,8 +109,9 @@ def program_log():
     """获取程序日志信息"""
     log_date = request.args.get('log_date', datetime.today().strftime("%Y%m%d"))
     page = int(request.args.get('page', "1"))
+    level = request.args.get('level', 'all')
     worker = LcWorker(config.storage['API_ID'], config.storage['API_KEY'])
-    d = worker.get_a_page_of_program_log(page, log_date)
+    d = worker.get_a_page_of_program_log(page, log_date, level)
     return output(data={"datas": d[0], "totalPage": d[1]})
 
 

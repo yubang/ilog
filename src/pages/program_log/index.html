@@ -2,7 +2,20 @@
 <block name="content">
 
     <div class="search">
-        <el-date-picker v-model="value2" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions1" @change="selectDate"></el-date-picker>
+        <el-form ref="form" :model="form" label-width="80px" :inline="true">
+            <el-date-picker v-model="value2" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions1" @change="selectDate"></el-date-picker>
+
+        <el-form-item label="日志等级">
+            <el-select v-model="form.level" placeholder="请选择日志等级" @change="selectLevel">
+              <el-option label="全部" value="all"></el-option>
+              <el-option label="DEBUG" value="DEBUG"></el-option>
+                <el-option label="INFO" value="INFO"></el-option>
+                <el-option label="WARN" value="WARN"></el-option>
+                <el-option label="ERROR" value="ERROR"></el-option>
+                <el-option label="FATAL" value="FATAL"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
     </div>
 
     <template>

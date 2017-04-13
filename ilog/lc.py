@@ -82,11 +82,12 @@ class LcWorker(BaseObject):
         obj.set('log_time', log_time)
         obj.save()
 
-    def get_a_page_of_program_log(self, page, request_date):
+    def get_a_page_of_program_log(self, page, request_date, level):
         """
         获取一页程序日志数据
         :param page: 页数
         :param request_date: 日期（字符串 %Y%M%D）
+        :param level: 日志等级
         :return:
         """
         obj = leancloud.Object.extend('ilog_program_' + request_date)
@@ -94,6 +95,9 @@ class LcWorker(BaseObject):
         query.limit(10)
         query.skip((page - 1) * 10)
         query.add_descending("log_time")
+
+        if level != 'all':
+            query.equal_to("level", level)
 
         try:
             total_count = query.count()

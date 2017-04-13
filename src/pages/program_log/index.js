@@ -1,4 +1,5 @@
 var page = parseInt(app.get_args("page")) || 1;
+var level = app.get_args("level") || 'all';
 
 function searchData(){
     var t;
@@ -11,7 +12,7 @@ function searchData(){
     }else{
         t = getToday();
     }
-    app.goto("/web/html/program-log?page=" + page + "&log_date="+t);
+    app.goto("/web/html/program-log?page=" + page + "&log_date="+t + "&level="+level);
 }
 
 var pickerOptions1 = {
@@ -45,6 +46,7 @@ app.init({
         pickerOptions1: pickerOptions1
     },
     methods: {
+        selectLevel: function(){level = app.vm.form.level;searchData();},
         selectDate: function(){searchData();},
         "currentChange": function(currentPage){
             page=currentPage;
@@ -55,7 +57,8 @@ app.init({
         url: '/web/api/program-log',
         data: {
             page: parseInt(app.get_args("page")) || 1,
-            log_date: app.get_args('log_date') || getToday()
+            log_date: app.get_args('log_date') || getToday(),
+            level: app.get_args('level') || 'all'
         },
         before_success: check_login,
         success: function(d){
@@ -65,7 +68,8 @@ app.init({
                 nums: parseInt(app.get_args("page")) || 1,
                 totalPage: d['data']['totalPage'],
                 pickerOptions1: pickerOptions1,
-                value2: handleDate(app.get_args('log_date'))
+                value2: handleDate(app.get_args('log_date')),
+                form: {level: app.get_args('level') || 'all'}
             }
         }
     }
