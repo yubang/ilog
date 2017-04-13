@@ -77,8 +77,7 @@ def request_log():
 
 @app.errorhandler(404)
 def all_request(e):
-    with open('index.html') as fp:
-        return Response(fp.read(), content_type='text/html')
+    return send_file("index.html")
 
 
 @app.route('/favicon.ico')

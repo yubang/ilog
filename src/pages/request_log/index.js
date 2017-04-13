@@ -69,6 +69,9 @@ app.init({
             setTimeout(function(){
                 var html = text.replace(/\n/g, "<br>");
                  $(".el-message-box__message > p").html(html)
+                 $(".el-message-box__wrapper").css("overflow-y", "scroll");
+                 $(".el-message-box").css("width", "720px");
+                 $(".el-message-box").css("overflow-x", "scroll");
             }, 200);
         }
     },

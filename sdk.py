@@ -11,7 +11,7 @@ class ILog(object):
         self.token = token
         self.app_name = app_name
 
-    def login_log(self, request_url, request_param, response_data, request_time, use_time=0, request_method='GET',  request_headers=None, error_data=None, status_code=200):
+    def login_log(self, request_url, request_param, response_data, request_time, use_time=0, request_method='GET',  request_headers=None, error_data='', status_code=200):
         """
         提交请求日志
         :param request_url: 请求地址
@@ -50,7 +50,7 @@ class ILog(object):
             "app_name": self.app_name,
         }
         r = requests.post(self.api_url + "/api/login-log", data=d)
-        print r.json()['code']
+        return r.content
 
     def login_program_log(self, level, msg, d):
         if d is None:
@@ -63,7 +63,7 @@ class ILog(object):
             "app_name": self.app_name,
         }
         r = requests.post(self.api_url + "/api/login-program-log", data=data)
-        print r.json()['code']
+        return r.content
 
     def debug(self, msg, d=None):
         return self.login_program_log("DEBUG", msg, d)
