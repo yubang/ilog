@@ -30,9 +30,9 @@ python web.py
 ###### 程序预览
 
 
-![应用请求日志面板](https://github.com/yubang/ilog/tree/master/src/pic/1.png)
+![应用请求日志面板](https://github.com/yubang/ilog/tree/master/doc/pic/1.png)
 
-![应用自定义日志面板](https://github.com/yubang/ilog/tree/master/src/pic/2.png)
+![应用自定义日志面板](https://github.com/yubang/ilog/tree/master/doc/pic/2.png)
 
-![关于面板](https://github.com/yubang/ilog/tree/master/src/pic/3.png)
+![关于面板](https://github.com/yubang/ilog/tree/master/src/doc/3.png)
 
