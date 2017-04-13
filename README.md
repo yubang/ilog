@@ -43,6 +43,11 @@ python web.py
 * 或者提issues
 
 
+###### 开发相关
+
+* [本系统前端采用applet（https://github.com/yubang/applet）编译打包，如要修改代码请注意安装](https://github.com/yubang/applet)
+
+
 ###### 程序预览
 
 
