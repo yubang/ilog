@@ -27,12 +27,28 @@ python web.py
 ```
 
 
+###### 使用手册
+
+* [配置文件详解](https://github.com/yubang/ilog/tree/master/doc/1.md)
+
+* [SDK使用](https://github.com/yubang/ilog/tree/master/doc/2.md)
+
+* [与现有系统集成](https://github.com/yubang/ilog/tree/master/doc/3.md)
+
+
+
 ###### 程序预览
 
 
 ![应用请求日志面板](https://github.com/yubang/ilog/raw/master/doc/pic/1.png)
+<p align="center">（应用请求日志面板）</p>
+<br>
 
 ![应用自定义日志面板](https://github.com/yubang/ilog/raw/master/doc/pic/2.png)
+<p align="center">（应用自定义日志面板）</p>
+<br>
 
 ![关于面板](https://github.com/yubang/ilog/raw/master/doc/pic/3.png)
+<p align="center">（关于面板）</p>
+<br>
 
